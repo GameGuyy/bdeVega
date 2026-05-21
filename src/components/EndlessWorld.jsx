@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RigidBody } from '@react-three/rapier';
+import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { useGameStore } from '../store/useGameStore';
 import * as THREE from 'three';
 
@@ -15,11 +15,12 @@ const Coin = ({ position, onCollect }) => {
   });
 
   return (
-    <RigidBody type="fixed" colliders="cuboid" sensor position={position} onIntersectionEnter={onCollect}>
+    <RigidBody type="fixed" colliders={false} position={position}>
       <mesh ref={meshRef} castShadow>
         <cylinderGeometry args={[0.4, 0.4, 0.15, 16]} />
         <meshStandardMaterial color="#FFD700" metalness={0.9} roughness={0.1} emissive="#FFA500" emissiveIntensity={0.5} />
       </mesh>
+      <CuboidCollider args={[0.4, 0.4, 0.4]} sensor onIntersectionEnter={onCollect} />
     </RigidBody>
   );
 };
@@ -27,11 +28,12 @@ const Coin = ({ position, onCollect }) => {
 // Spike Component
 const Spike = ({ position, onHit }) => {
   return (
-    <RigidBody type="fixed" colliders="cuboid" sensor position={position} onIntersectionEnter={onHit}>
+    <RigidBody type="fixed" colliders={false} position={position}>
       <mesh castShadow>
         <coneGeometry args={[0.4, 0.8, 4]} />
         <meshStandardMaterial color="#FF3366" toneMapped={false} emissive="#FF0000" emissiveIntensity={0.8} />
       </mesh>
+      <CuboidCollider args={[0.4, 0.4, 0.4]} sensor onIntersectionEnter={onHit} />
     </RigidBody>
   );
 };
@@ -187,20 +189,24 @@ export const EndlessWorld = () => {
   return (
     <>
       {/* Platforms */}
-      {worldData.platforms.map((plat) => (
-        <RigidBody key={plat.id} type="fixed" position={plat.pos} colliders="cuboid">
-          <mesh receiveShadow>
-            <boxGeometry args={plat.size} />
-            <meshStandardMaterial 
-              color={plat.color} 
-              roughness={0.4}
-              metalness={0.2}
-              emissive={plat.color === '#3b82f6' ? '#1d4ed8' : '#000000'}
-              emissiveIntensity={0.3}
-            />
-          </mesh>
-        </RigidBody>
-      ))}
+      {worldData.platforms.map((plat) => {
+        const halfExtents = [plat.size[0] / 2, plat.size[1] / 2, plat.size[2] / 2];
+        return (
+          <RigidBody key={plat.id} type="fixed" position={plat.pos} colliders={false}>
+            <mesh receiveShadow>
+              <boxGeometry args={plat.size} />
+              <meshStandardMaterial 
+                color={plat.color} 
+                roughness={0.4}
+                metalness={0.2}
+                emissive={plat.color === '#3b82f6' ? '#1d4ed8' : '#000000'}
+                emissiveIntensity={0.3}
+              />
+            </mesh>
+            <CuboidCollider args={halfExtents} />
+          </RigidBody>
+        );
+      })}
 
       {/* Coins */}
       {worldData.coins

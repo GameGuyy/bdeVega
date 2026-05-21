@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useTexture, useKeyboardControls } from '@react-three/drei';
-import { RigidBody } from '@react-three/rapier';
+import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { useGameStore } from '../store/useGameStore';
 import * as THREE from 'three';
 
@@ -91,7 +91,7 @@ export const Player2D = ({ spriteUrl = '/sprite.png' }) => {
   return (
     <RigidBody 
       ref={rb} 
-      colliders="cuboid" 
+      colliders={false} 
       enabledRotations={[false, false, false]} 
       position={[0, 2, 0]}
       lockTranslations={[false, false, true]} // Lock Z translation for true 2D
@@ -102,6 +102,7 @@ export const Player2D = ({ spriteUrl = '/sprite.png' }) => {
           <meshBasicMaterial map={texture} transparent={true} alphaTest={0.3} side={THREE.DoubleSide} />
         </mesh>
       </group>
+      <CuboidCollider args={[0.45, 0.5, 0.45]} />
     </RigidBody>
   );
 };

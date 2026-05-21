@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useAnimations, useGLTF, useKeyboardControls } from '@react-three/drei';
-import { RigidBody } from '@react-three/rapier';
+import { RigidBody, CapsuleCollider } from '@react-three/rapier';
 import { useGameStore } from '../store/useGameStore';
 import * as THREE from 'three';
 
@@ -186,7 +186,7 @@ export const Player3D = ({ modelUrl = '/character.glb' }) => {
   });
 
   return (
-    <RigidBody ref={rb} colliders="capsule" enabledRotations={[false, false, false]} position={[0, 2, 0]}>
+    <RigidBody ref={rb} colliders={false} enabledRotations={[false, false, false]} position={[0, 2, 0]}>
       <GLTFErrorBoundary fallback={<ProceduralRobot groupRef={group} />}>
         <GLTFModel 
           modelUrl={modelUrl} 
@@ -195,6 +195,7 @@ export const Player3D = ({ modelUrl = '/character.glb' }) => {
           setCurrentAnimation={setCurrentAnimation} 
         />
       </GLTFErrorBoundary>
+      <CapsuleCollider args={[0.5, 0.35]} position={[0, 0.55, 0]} />
     </RigidBody>
   );
 };
