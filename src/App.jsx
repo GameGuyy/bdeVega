@@ -50,12 +50,12 @@ function App() {
               <div className="controls-guide">
                 <h3>🎮 CONTROLS</h3>
                 <div className="guide-grid">
+                  <div><kbd>W</kbd> <kbd>S</kbd> or <kbd>↑</kbd> <kbd>↓</kbd></div>
+                  <span>Run Forward / Backward</span>
                   <div><kbd>A</kbd> <kbd>D</kbd> or <kbd>←</kbd> <kbd>→</kbd></div>
-                  <span>Run / Move</span>
+                  <span>Lane Switch Left / Right</span>
                   <div><kbd>Space</kbd></div>
                   <span>Jump</span>
-                  <div><kbd>W</kbd> <kbd>S</kbd> or <kbd>↑</kbd> <kbd>↓</kbd></div>
-                  <span>3D Plane Movement</span>
                 </div>
               </div>
 

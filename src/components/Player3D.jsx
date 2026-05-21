@@ -156,10 +156,10 @@ export const Player3D = ({ modelUrl = '/character.glb' }) => {
     }
 
     // Re-aligned 3D Control Schema:
-    // Left/Right (A/D) controls X-axis movement (running along track)
-    // Forward/Backward (W/S) controls Z-axis lane switching (clamped safely)
-    const targetVelX = (right ? speed : 0) - (left ? speed : 0);
-    const targetVelZ = (backward ? speed : 0) - (forward ? speed : 0);
+    // Forward/Backward (W/S) controls X-axis movement (running along track)
+    // Left/Right (A/D) controls Z-axis lane switching (clamped safely)
+    const targetVelX = (forward ? speed : 0) - (backward ? speed : 0);
+    const targetVelZ = (right ? speed : 0) - (left ? speed : 0);
 
     // Smooth velocity lerping for acceleration inertia
     const lerpFactor = 0.15;
