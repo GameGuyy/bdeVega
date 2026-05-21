@@ -212,17 +212,13 @@ export const Player3D = ({ modelUrl = '/character.glb' }) => {
         />
       </GLTFErrorBoundary>
       <CapsuleCollider args={[0.5, 0.35]} position={[0, 0.55, 0]} />
-      {/* Dynamic Glowing Player Aura for Cinematic Shadows */}
+      {/* Dynamic Glowing Player Aura */}
       <pointLight 
         position={[0, 1.2, 0]} 
-        intensity={6.0} 
+        intensity={5.0} 
         color="#00f0ff" 
-        distance={15} 
+        distance={12} 
         decay={1.5} 
-        castShadow 
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-bias={-0.001}
       />
     </RigidBody>
   );

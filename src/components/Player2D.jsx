@@ -107,11 +107,10 @@ export const Player2D = ({ spriteUrl = '/sprite.png' }) => {
       {/* 2D Player Emissive Aura */}
       <pointLight 
         position={[0, 0, 0.8]} 
-        intensity={5.0} 
+        intensity={4.5} 
         color="#00f0ff" 
         distance={10} 
         decay={1.5} 
-        castShadow 
       />
     </RigidBody>
   );

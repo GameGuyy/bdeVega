@@ -10,7 +10,7 @@ import * as THREE from 'three';
 // ----------------------------------------------------
 // Glowing Neon Dust Particle System (HDR Atmosphere)
 // ----------------------------------------------------
-const GlowingDust = ({ count = 120 }) => {
+const GlowingDust = ({ count = 70 }) => {
   const mesh = useRef();
   const playerPosition = useGameStore((state) => state.playerPosition);
 
@@ -111,7 +111,7 @@ const Searchlight = ({ position, rotationSpeed = 0.5, color = "#ff007f", angleOf
         <meshStandardMaterial color={color} toneMapped={false} emissive={color} emissiveIntensity={2.0} />
       </mesh>
 
-      {/* Actual Spotlight Source casting dynamic shadows */}
+      {/* Actual Spotlight Source */}
       <spotLight 
         ref={lightRef}
         position={[0, 0.25, 0]}
@@ -120,9 +120,6 @@ const Searchlight = ({ position, rotationSpeed = 0.5, color = "#ff007f", angleOf
         intensity={25}
         color={color}
         distance={30}
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
       />
       
       {/* Visual glowing light shaft cone */}

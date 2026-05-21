@@ -366,7 +366,7 @@ export const EndlessWorld = () => {
   const handleCoinCollect = (coinId, coinPos) => {
     setWorldData((prev) => ({
       ...prev,
-      coins: prev.coins.map((c) => (c.id === coinId ? { ...c, collected: true } : c))
+      coins: prev.coins.filter((c) => c.id !== coinId)
     }));
     addPoints(10);
     spawnEffect([coinPos[0], coinPos[1], coinPos[2] || 0], "#FFD700");
@@ -400,15 +400,13 @@ export const EndlessWorld = () => {
       })}
 
       {/* Coins */}
-      {worldData.coins
-        .filter((c) => !c.collected)
-        .map((coin) => (
-          <Coin 
-            key={coin.id} 
-            position={coin.pos} 
-            onCollect={() => handleCoinCollect(coin.id, coin.pos)} 
-          />
-        ))}
+      {worldData.coins.map((coin) => (
+        <Coin 
+          key={coin.id} 
+          position={coin.pos} 
+          onCollect={() => handleCoinCollect(coin.id, coin.pos)} 
+        />
+      ))}
 
       {/* Spikes */}
       {worldData.spikes.map((spike) => (
